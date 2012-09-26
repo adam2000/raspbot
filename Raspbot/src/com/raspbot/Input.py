@@ -2,7 +2,7 @@
 @author: Christoffer Ackelman
 '''
 
-class MyClass(object):
+class Input:
     
     def __init__(self):
         pass
