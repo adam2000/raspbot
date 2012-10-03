@@ -1,5 +1,6 @@
 '''
 @author: Christoffer Ackelman
+@author: Rasmus Eneman
 '''
 
 class Engines:
