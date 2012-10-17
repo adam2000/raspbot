@@ -2,15 +2,12 @@
 @author: Christoffer Ackelman
 '''
 
+from Engines import *
+
 class Main:
     def __init__(self):
-        '''
-        Main loop:
-            Get input data from Input
-            Do logic
-            Send command to Engines
-        '''
-        pass
+        engines = Engines()
+        engines.backward()
 
 if __name__ == '__main__':
     main = Main()
