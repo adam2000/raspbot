@@ -3,24 +3,22 @@
 @author: Rasmus Eneman
 '''
 
-import wiringpi
+import os
 
 #Constants
 leftEngineCW = 2
 leftEngineCCW = 3
 rightEngineCW = 4
 rightEngineCCW = 17
-OUTPUT = 1
 LOW = 0
 HIGH = 1
 
+INIT = "/home/pi/raspbot/trunk/src/init.sh"
+GPIO = "/home/pi/raspbot/trunk/src/gpio.sh "
+
 class Engines:
     def __init__(self):
-        wiringpi.wiringPiSetup()
-        wiringpi.pinMode(leftEngineCW, OUTPUT)
-        wiringpi.pinMode(leftEngineCCW, OUTPUT)
-        wiringpi.pinMode(rightEngineCW, OUTPUT)
-        wiringpi.pinMode(rightEngineCCW, OUTPUT)
+        os.system(INIT)
     
     '''
     Go forward. 
@@ -36,7 +34,7 @@ class Engines:
     Make the left engine rotate clockwise (backward)
     and the right engine rotate counter-clockwise (backward).
     '''
-    def backward(self):
+    def back(self):
         self.leftEngineCW()
         self.rightEngineCCW()
     
@@ -45,7 +43,7 @@ class Engines:
     Make the left engine rotate counter-clockwise (forward)
     and the right engine rotate counter-clockwise (backward).
     '''
-    def turnRight(self):
+    def right(self):
         self.leftEngineCCW()
         self.rightEngineCCW()
     
@@ -54,7 +52,7 @@ class Engines:
     Make the left engine rotate clockwise (backward)
     and the right engine rotate clockwise (forward).
     '''
-    def turnLeft(self):
+    def left(self):
         self.leftEngineCW()
         self.rightEngineCW()
     
@@ -64,10 +62,10 @@ class Engines:
     rotation to LOW (off) for both engines.
     ''' 
     def stop(self):
-        wiringpi.digitalWrite(leftEngineCCW, LOW)
-        wiringpi.digitalWrite(leftEngineCW, LOW)
-        wiringpi.digitalWrite(rightEngineCCW, LOW)
-        wiringpi.digitalWrite(rightEngineCW, LOW)
+        self.gpio(leftEngineCCW, LOW)
+        self.gpio(leftEngineCW, LOW)
+        self.gpio(rightEngineCCW, LOW)
+        self.gpio(rightEngineCW, LOW)
     
     '''
     Makes the left engine rotate clockwise.
@@ -75,8 +73,8 @@ class Engines:
     and the clockwise rotation to HIGH (on).
     '''
     def leftEngineCW(self):
-        wiringpi.digitalWrite(leftEngineCCW, LOW)
-        wiringpi.digitalWrite(leftEngineCW, HIGH)
+        self.gpio(leftEngineCCW, LOW)
+        self.gpio(leftEngineCW, HIGH)
     
     '''
     Makes the left engine rotate counter-clockwise.
@@ -84,8 +82,8 @@ class Engines:
     and the counter-clockwise rotation to HIGH (on).
     '''
     def leftEngineCCW(self):
-        wiringpi.digitalWrite(leftEngineCW, LOW)
-        wiringpi.digitalWrite(leftEngineCCW, HIGH)
+        self.gpio(leftEngineCW, LOW)
+        self.gpio(leftEngineCCW, HIGH)
     
     '''
     Makes the right engine rotate clockwise.
@@ -93,8 +91,8 @@ class Engines:
     and the clockwise rotation to HIGH (on).
     '''
     def rightEngineCW(self):
-        wiringpi.digitalWrite(rightEngineCCW, LOW)
-        wiringpi.digitalWrite(rightEngineCW, HIGH)
+        self.gpio(rightEngineCCW, LOW)
+        self.gpio(rightEngineCW, HIGH)
     
     '''
     Makes the right engine rotate counter-clockwise.
@@ -102,5 +100,8 @@ class Engines:
     and the counter-clockwise rotation to HIGH (on).
     '''
     def rightEngineCCW(self):
-        wiringpi.digitalWrite(rightEngineCW, LOW)
-        wiringpi.digitalWrite(rightEngineCCW, HIGH)
+        self.gpio(rightEngineCW, LOW)
+        self.gpio(rightEngineCCW, HIGH)
+
+    def gpio(self, pin, value):
+        os.system(GPIO + str(pin) + " " + str(value))
