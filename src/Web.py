@@ -21,9 +21,20 @@ class WebServer(BaseHTTPRequestHandler):
                 f.close()
                 return
 
-            elif self.path == "/forward":
-                main.engines.forward()
-                self.send_response(200)
+            elif self.path.startswith("/engines/"):
+                if self.path == "/engines/forward":
+                    main.engines.forward()
+                elif self.path == "/engines/back":
+                    main.engines.back()
+                elif self.path == "/engines/left":
+                    main.engines.left()
+                elif self.path == "/engines/right":
+                    main.engines.right()
+                elif self.path == "/engines/stop":
+                    main.engines.stop()
+
+                self.send_response(301)
+                self.send_header("Location", "/")
                 self.end_headers()
                 self.wfile.write(self.path)
 

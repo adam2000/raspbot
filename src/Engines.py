@@ -10,6 +10,7 @@ leftEngineCW = 2
 leftEngineCCW = 3
 rightEngineCW = 4
 rightEngineCCW = 17
+enginesOn = 18
 LOW = 0
 HIGH = 1
 
@@ -19,7 +20,20 @@ GPIO = "/home/pi/raspbot/trunk/src/gpio.sh "
 class Engines:
     def __init__(self):
         os.system(INIT)
+        self.off()
     
+    '''
+    Turns on the engines
+    '''
+    def on(self):
+        self.gpio(enginesOn, HIGH)
+ 
+    '''
+    Turns off the engines
+    '''
+    def off(self):
+        self.gpio(enginesOn, LOW)
+
     '''
     Go forward. 
     Make the left engine rotate counter-clockwise (forward)
@@ -28,6 +42,7 @@ class Engines:
     def forward(self):
         self.leftEngineCCW()
         self.rightEngineCW()
+        self.on()
     
     '''
     Go backward.
@@ -37,7 +52,8 @@ class Engines:
     def back(self):
         self.leftEngineCW()
         self.rightEngineCCW()
-    
+        self.on()
+
     '''
     Turn right.
     Make the left engine rotate counter-clockwise (forward)
@@ -46,6 +62,8 @@ class Engines:
     def right(self):
         self.leftEngineCCW()
         self.rightEngineCCW()
+        self.on()
+
     
     '''
     Turn left.
@@ -55,6 +73,8 @@ class Engines:
     def left(self):
         self.leftEngineCW()
         self.rightEngineCW()
+        self.on()
+
     
     '''
     Stop.
@@ -66,6 +86,8 @@ class Engines:
         self.gpio(leftEngineCW, LOW)
         self.gpio(rightEngineCCW, LOW)
         self.gpio(rightEngineCW, LOW)
+        self.off()
+
     
     '''
     Makes the left engine rotate clockwise.
