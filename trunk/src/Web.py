@@ -6,7 +6,7 @@ from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 class WebServer(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        global engines
+        global main
         
         try:
             self.path = urllib2.unquote(self.path)
@@ -22,7 +22,7 @@ class WebServer(BaseHTTPRequestHandler):
                 return
 
             elif self.path == "/forward":
-                engines.forward()
+                main.engines.forward()
                 self.send_response(200)
                 self.end_headers()
                 self.wfile.write(self.path)
@@ -51,6 +51,9 @@ class Web(threading.Thread):
             print '^C received, shutting down server'
             server.socket.close()
 
-def start():
+def start(Main):
+    global main
+    main = Main
+    
     web = Web()
     web.start()
