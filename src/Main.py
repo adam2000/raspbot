@@ -1,13 +1,15 @@
 '''
 @author: Christoffer Ackelman
 '''
-
-from Engines import *
+import Web
+from Engines import Engines
 
 class Main:
     def __init__(self):
+        global engines
         engines = Engines()
-        engines.backward()
+        Web.start()
+        #engines.backward()
 
 if __name__ == '__main__':
     main = Main()
