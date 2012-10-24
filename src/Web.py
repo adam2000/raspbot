@@ -32,6 +32,9 @@ class WebServer(BaseHTTPRequestHandler):
                     main.engines.right()
                 elif self.path == "/engines/stop":
                     main.engines.stop()
+                elif self.path.startswith("/engines/speed="):
+                    speed = int(self.path.split("=")[1])
+                    main.engines.speed(speed)
 
                 self.send_response(301)
                 self.send_header("Location", "/")
