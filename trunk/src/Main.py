@@ -6,9 +6,8 @@ from Engines import Engines
 
 class Main:
     def __init__(self):
-        global engines
-        engines = Engines()
-        Web.start()
+        self.engines = Engines()
+        Web.start(self)
         #engines.backward()
 
 if __name__ == '__main__':
