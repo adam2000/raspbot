@@ -118,7 +118,7 @@ class Engines:
     and the clockwise rotation to HIGH (on).
     '''
     def rightEngineCW(self):
-        self.gpio(rightEngineCW, HIGH)
+        self.gpio(rightEngineCW, LOW)
     
     '''
     Makes the right engine rotate counter-clockwise.
@@ -126,7 +126,7 @@ class Engines:
     and the counter-clockwise rotation to HIGH (on).
     '''
     def rightEngineCCW(self):
-        self.gpio(rightEngineCW, LOW)
+        self.gpio(rightEngineCW, HIGH)
 
     def gpio(self, pin, value):
         os.system(GPIO + str(pin) + " " + str(value))

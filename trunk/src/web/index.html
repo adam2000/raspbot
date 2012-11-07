@@ -2,10 +2,12 @@
 <html>
     <head>
         <title>Raspbot</title>
-        <!--<link rel="StyleSheet" href="style.css" type="text/css" />
+        <!--<link rel="StyleSheet" href="style.css" type="text/css" />-->
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<link href="jquery-ui-1.9.1.custom.min.css" rel="stylesheet" />
         <script type="text/javascript" src="jquery.min.js"></script>
-        <script type="text/javascript" src="script.js"></script>-->
+	<script type="text/javascript" src="jquery-ui-1.9.1.custom.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
     </head>
     <body>
         <a href="/engines/forward">Forward</a><br />
@@ -13,5 +15,8 @@
         <a href="/engines/left">Left</a><br />
         <a href="/engines/right">Right</a><br />
         <a href="/engines/stop">Stop</a><br />
+        <input id="speed" value="1024" />
+        <button id="set">set</button>
+        <div id="slider"></div>
     </body>
 </html>
