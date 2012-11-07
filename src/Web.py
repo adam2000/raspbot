@@ -34,10 +34,11 @@ class WebServer(BaseHTTPRequestHandler):
                     main.engines.stop()
                 elif self.path.startswith("/engines/speed="):
                     speed = int(self.path.split("=")[1])
+                    print(speed)
                     main.engines.speed(speed)
 
-                self.send_response(301)
-                self.send_header("Location", "/")
+                self.send_response(200)
+                #self.send_header("Location", "/")
                 self.end_headers()
                 self.wfile.write(self.path)
 
@@ -58,7 +59,7 @@ class Web(threading.Thread):
 
     def run(self):
         try:
-            server = HTTPServer(('', 8080), WebServer)
+            server = HTTPServer(('', 80), WebServer)
             print 'started httpserver...'
             server.serve_forever()
         except KeyboardInterrupt:

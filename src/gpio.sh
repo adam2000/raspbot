@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/dash
 
 pin=$1
 value=$2
