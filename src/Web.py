@@ -71,4 +71,5 @@ def start(Main):
     main = Main
     
     web = Web()
+    web.daemon = True
     web.start()
