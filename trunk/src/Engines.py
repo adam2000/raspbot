@@ -4,50 +4,46 @@
 '''
 
 import os
-import wiringpi
 
 #Constants
 leftEngineCW = 2
-leftEngineCCW = 3
+#leftEngineCCW = 3
 rightEngineCW = 4
-rightEngineCCW = 17
+#rightEngineCCW = 17
 pwmPin = 1 #wirningPi number, rely pin 18
 LOW = 0
 HIGH = 1
 
-INIT = "/home/pi/raspbot/trunk/src/init.sh"
 GPIO = "/home/pi/raspbot/trunk/src/gpio.sh "
 
 class Engines:
     lastSpeed = 1024 #Start at full speed
-    
-    def __init__(self):
-        os.system(INIT)
-        self.io = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_PINS)
-        self.io.pinMode(pwmPin, self.io.PWM_OUTPUT)
+
+    def __init__(self, main):
+        self.main = main
         self.off()
-    
+
     '''
     Turns on the engines at the last used speed
     '''
     def on(self):
-        self.io.pwmWrite(pwmPin, self.lastSpeed)
-    
+        self.main.io.pwmWrite(pwmPin, self.lastSpeed)
+
     '''
     Turns on the engines at the specified speed
     '''
     def speed(self, speed):
         self.lastSpeed = speed
-        self.io.pwmWrite(pwmPin, speed)
- 
+        self.main.io.pwmWrite(pwmPin, speed)
+
     '''
     Turns off the engines
     '''
     def off(self):
-        self.io.pwmWrite(pwmPin, LOW)
+        self.main.io.pwmWrite(pwmPin, LOW)
 
     '''
-    Go forward. 
+    Go forward.
     Make the left engine rotate counter-clockwise (forward)
     and the right engine rotate clockwise (forward).
     '''
@@ -55,7 +51,7 @@ class Engines:
         self.leftEngineCCW()
         self.rightEngineCW()
         self.on()
-    
+
     '''
     Go backward.
     Make the left engine rotate clockwise (backward)
@@ -75,7 +71,7 @@ class Engines:
         self.leftEngineCCW()
         self.rightEngineCCW()
         self.on()
-    
+
     '''
     Turn left.
     Make the left engine rotate clockwise (backward)
@@ -85,17 +81,17 @@ class Engines:
         self.leftEngineCW()
         self.rightEngineCW()
         self.on()
-    
+
     '''
     Stop.
     Set both clockwise and counter-clockwise
     rotation to LOW (off) for both engines.
-    ''' 
+    '''
     def stop(self):
         self.off()
         self.gpio(leftEngineCW, LOW)
         self.gpio(rightEngineCW, LOW)
-    
+
     '''
     Makes the left engine rotate clockwise.
     Set the counter-clockwise rotation to LOW (off)
@@ -103,7 +99,7 @@ class Engines:
     '''
     def leftEngineCW(self):
         self.gpio(leftEngineCW, HIGH)
-    
+
     '''
     Makes the left engine rotate counter-clockwise.
     Set the clockwise rotation to LOW (off)
@@ -111,7 +107,7 @@ class Engines:
     '''
     def leftEngineCCW(self):
         self.gpio(leftEngineCW, LOW)
-    
+
     '''
     Makes the right engine rotate clockwise.
     Set the counter-clockwise rotation to LOW (off)
@@ -119,7 +115,7 @@ class Engines:
     '''
     def rightEngineCW(self):
         self.gpio(rightEngineCW, LOW)
-    
+
     '''
     Makes the right engine rotate counter-clockwise.
     Set the clockwise rotation to LOW (off)
