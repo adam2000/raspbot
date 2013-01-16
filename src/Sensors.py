@@ -4,6 +4,7 @@
 '''
 
 import threading
+import time
 import Main
 
 class Sensors(threading.Thread):
@@ -15,6 +16,8 @@ class Sensors(threading.Thread):
                 main.engines.stop()
             if not main.io.digitalRead(Main.rightSensorPin):
                 main.engines.stop()
+
+            time.sleep(0.01)
 
 
 def start(Main):
