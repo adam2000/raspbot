@@ -1,3 +1,7 @@
+'''
+@author: Rasmus Eneman
+'''
+
 import threading
 import urllib2
 from os import curdir, sep
@@ -58,13 +62,15 @@ class WebServer(BaseHTTPRequestHandler):
 class Web(threading.Thread):
 
     def run(self):
+        server = None
         try:
             server = HTTPServer(('', 80), WebServer)
             print 'started httpserver...'
             server.serve_forever()
         except KeyboardInterrupt:
             print '^C received, shutting down server'
-            server.socket.close()
+            if server is not None:
+                server.socket.close()
 
 def start(Main):
     global main
