@@ -11,9 +11,9 @@ class Sensors(threading.Thread):
     def run(self):
         global main
         while 1:
-            if main.io.digitalRead(Main.leftSensorPin):
+            if not main.io.digitalRead(Main.leftSensorPin):
                 main.engines.stop()
-            if main.io.digitalRead(Main.rightSensorPin):
+            if not main.io.digitalRead(Main.rightSensorPin):
                 main.engines.stop()
 
 
