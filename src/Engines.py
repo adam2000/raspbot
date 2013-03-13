@@ -11,6 +11,7 @@ leftEngineCW = 2
 rightEngineCW = 4
 #rightEngineCCW = 17
 pwmPin = 1 #wirningPi number, rely pin 18
+pwmPin2 = 18
 LOW = 0
 HIGH = 1
 
@@ -27,7 +28,8 @@ class Engines:
     Turns on the engines at the last used speed
     '''
     def on(self):
-        self.main.io.pwmWrite(pwmPin, self.lastSpeed)
+        #self.main.io.pwmWrite(pwmPin, self.lastSpeed)
+        self.gpio(18,HIGH)
 
     '''
     Turns on the engines at the specified speed
@@ -40,7 +42,8 @@ class Engines:
     Turns off the engines
     '''
     def off(self):
-        self.main.io.pwmWrite(pwmPin, LOW)
+        #self.main.io.pwmWrite(pwmPin, LOW)
+        self.gpio(18,LOW)
 
     '''
     Go forward.
@@ -68,8 +71,8 @@ class Engines:
     and the right engine rotate counter-clockwise (backward).
     '''
     def right(self):
-        self.leftEngineCCW()
-        self.rightEngineCCW()
+        self.leftEngineCW()
+        self.rightEngineCW()
         self.on()
 
     '''
@@ -78,8 +81,8 @@ class Engines:
     and the right engine rotate clockwise (forward).
     '''
     def left(self):
-        self.leftEngineCW()
-        self.rightEngineCW()
+        self.leftEngineCCW()
+        self.rightEngineCCW()
         self.on()
 
     '''
@@ -88,6 +91,7 @@ class Engines:
     rotation to LOW (off) for both engines.
     '''
     def stop(self):
+        print 'stop'
         self.off()
         self.gpio(leftEngineCW, LOW)
         self.gpio(rightEngineCW, LOW)

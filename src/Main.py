@@ -9,7 +9,8 @@ import Sensors
 import Web
 from Engines import Engines
 
-pwmPin = 1 #wirningPi number, rely pin 18
+#pwmPin = 1 #wirningPi number, rely pin 18
+pwmPin = 18
 leftSensorPin = 3
 rightSensorPin = 17
 
@@ -19,8 +20,8 @@ class Main:
     def __init__(self):
         os.system(INIT)
         wiringpi.wiringPiSetupSys()
-        self.io = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_PINS)
-        self.io.pinMode(pwmPin, self.io.PWM_OUTPUT)
+        self.io = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_SYS)
+        #self.io.pinMode(pwmPin, self.io.PWM_OUTPUT)
         self.io.pinMode(leftSensorPin, self.io.INPUT)
         self.io.pinMode(rightSensorPin, self.io.INPUT)
         self.engines = Engines(self)
