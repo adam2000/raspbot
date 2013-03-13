@@ -13,6 +13,7 @@ class WebServer(BaseHTTPRequestHandler):
         global main
         
         try:
+            print self.path
             self.path = urllib2.unquote(self.path)
             print self.path
             if self.path == "/":
