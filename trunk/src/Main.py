@@ -5,7 +5,7 @@
 import time
 import os
 import wiringpi
-import Sensors
+import Ping
 import Web
 from Engines import Engines
 
@@ -22,10 +22,10 @@ class Main:
         wiringpi.wiringPiSetupSys()
         self.io = wiringpi.GPIO(wiringpi.GPIO.WPI_MODE_SYS)
         #self.io.pinMode(pwmPin, self.io.PWM_OUTPUT)
-        self.io.pinMode(leftSensorPin, self.io.INPUT)
-        self.io.pinMode(rightSensorPin, self.io.INPUT)
+        #self.io.pinMode(leftSensorPin, self.io.INPUT)
+        #self.io.pinMode(rightSensorPin, self.io.INPUT)
         self.engines = Engines(self)
-        Sensors.start(self)
+        Ping.start(self)
         Web.start(self)
         while 1:
             time.sleep(10)
